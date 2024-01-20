@@ -20,3 +20,6 @@ docker network create goal-net
 docker run --name mongodb --rm -d --network goal-net mongo
 docker run --name goals-be --rm --network goal-net -p 81:80 goals-node
 docker run --name goals-fe --rm -p 3000:3000 goals-react
+
+# volume
+docker run --name mongodb -v data:/data/db --rm -d --network goal-net mongo
