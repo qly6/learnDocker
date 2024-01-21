@@ -20,7 +20,14 @@ services:
     #   - ./env/be.env
     depends_on:
       - mongodb
-
+  fontend:
+    build: ./frontend
+    ports:
+      - '3000:3000'
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
 volumes:
   data:
   logs:
