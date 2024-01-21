@@ -14,7 +14,7 @@ const accessLogStream = fs.createWriteStream(
   path.join(__dirname, 'logs', 'access.log'),
   { flags: 'a' }
 );
-const connectionString = `mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@mongodb:27017/course-goals`;
+const connectionString = `mongodb://mongodb:27017/course-goals`;
 
 app.use(morgan('combined', { stream: accessLogStream }));
 
