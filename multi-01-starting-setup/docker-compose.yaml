@@ -1,0 +1,47 @@
+version: "3.8"
+services:
+  mongodb:
+    image: 'mongo'
+    volumes:
+      - data:/data/db
+    ports:
+      - 27026:27027
+    # env_file:
+    #   - ./env/mongo.env
+    networks:
+      - goals-net
+
+  backend:
+    # build:
+    #   context: ./backend
+    #   dockerfile: Dockerfile
+    build: ./backend
+    image: 'goals-node'
+    volumes:
+      - logs:/logs/db
+      - ./backend:/app
+      - /app/node_modules
+    ports:
+      - 81:80
+    container_name: goals-be
+    env_file:
+      - ./env/be.env
+    networks:
+      - goals-net
+    depends_on:
+      - mongodb
+
+  frontend:
+    image: 'goals-react'
+    volumes:
+      - ./frontend/src:/app/src
+    ports:
+      - 3000:3000
+    container_name: goals-react
+
+volumes:
+    data:
+    logs:
+
+networks:
+  goals-net:
